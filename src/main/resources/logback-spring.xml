@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback-spring.xml -->
+<configuration scan="true" scanPeriod="60 seconds"
+	debug="false">
+
+	<!-- 配置屬性 -->
+	<property name="DEV_HOME" value="C:/Jerry" />
+
+	<root level="info">
+		<appender-ref ref="Console" />
+		<appender-ref ref="FileoutAppender" />
+	</root>
+
+	<!-- 配置特定包的日誌級別 -->
+	<logger name="com.idv.hanjichen.software.log" level="info" />
+
+	<!-- Console Appender -->
+	<appender name="Console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- FileAppenders -->
+	<appender name="FileoutAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/Jerrylog.log</file>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${DEV_HOME}/debug.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+	</appender>
+</configuration>
